@@ -38,6 +38,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             } else if (state is UserLoaded) {
               return _buildUserInfoColumn(state);
             } else {
+              print(state.runtimeType);
               return _buildError();
             }
           },
@@ -54,7 +55,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       children: [
         CircleAvatar(
           child: Icon(Icons.account_circle),
-          minRadius: 80,
+          minRadius: 30,
         ),
         ListTile(
           leading: Icon(Icons.account_circle),
@@ -86,16 +87,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
         ListTile(
           leading: Icon(Icons.shopping_cart),
           title: Text("My Cart"),
-          subtitle: Row(
-            children: state.user.cart.map((e) => Text(e.toString())).toList(),
-          ),
+          subtitle: Text(state.user.cart.length.toString()),
         ),
         ListTile(
           leading: Icon(Icons.favorite),
           title: Text("My Favorites"),
-          subtitle: Row(
-            children: state.user.favoriteProducts.map((e) => Text(e.toString())).toList(),
-          ),
+          subtitle: Text(state.user.favoriteProducts.length.toString()),
         ),
         Divider(
           color: Colors.grey,

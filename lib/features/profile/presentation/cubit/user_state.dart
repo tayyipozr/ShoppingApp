@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:shopping_app/features/profile/data/models/user_model/user_model.dart';
+import 'package:shopping_app/features/shopping/data/models/product_model/product_model.dart';
 
 
 @immutable
@@ -33,6 +34,19 @@ class FavoriteAdded extends UserState {
 
   const FavoriteAdded(this.isAdded);
 }
+
+class UserGetCart extends UserState {
+  final List<ProductModel> cart;
+
+  const UserGetCart(this.cart);
+}
+
+class UserGetFavorites extends UserState {
+  final List<ProductModel> favorites;
+
+  const UserGetFavorites(this.favorites);
+}
+
 
 class UserError extends UserState {
   final String message;

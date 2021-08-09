@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shopping_app/core/error/failure.dart';
+import 'package:shopping_app/features/shopping/data/models/product_model/product_model.dart';
 
 part 'usecase.freezed.dart';
 
@@ -12,6 +13,7 @@ abstract class UseCase<Type, Params> {
 abstract class Params with _$Params {
   const factory Params.id(int id) = IdParams;
   const factory Params.name(String name) = NameParams;
+  const factory Params.product(ProductModel product) = ProductParams;
 }
 
 @freezed

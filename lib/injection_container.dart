@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopping_app/features/profile/domain/repositories/user_repository.dart';
 import 'package:shopping_app/features/profile/domain/usecases/add_favorite.dart';
+import 'package:shopping_app/features/profile/domain/usecases/get_cart.dart';
+import 'package:shopping_app/features/profile/domain/usecases/get_favorites.dart';
 import 'package:shopping_app/features/profile/domain/usecases/get_userinfo.dart';
 import 'package:shopping_app/features/profile/presentation/cubit/user_cubit.dart';
 import 'package:shopping_app/features/shopping/data/datasources/product_remote_datasource.dart';
@@ -26,7 +28,7 @@ Future<void> init() async {
   // Features
   serviceLocator.registerFactory(() => ProductCubit(serviceLocator(), serviceLocator(), serviceLocator()));
   serviceLocator.registerFactory(() => CategoryCubit(serviceLocator()));
-  serviceLocator.registerFactory(() => UserCubit(serviceLocator(), serviceLocator(), serviceLocator()));
+  serviceLocator.registerFactory(() => UserCubit(serviceLocator(), serviceLocator(), serviceLocator(), serviceLocator(), serviceLocator()));
 
   // UseCases
   serviceLocator.registerLazySingleton(() => GetProduct(serviceLocator()));
@@ -36,6 +38,8 @@ Future<void> init() async {
   serviceLocator.registerLazySingleton(() => AddCart(serviceLocator()));
   serviceLocator.registerLazySingleton(() => AddFavorite(serviceLocator()));
   serviceLocator.registerLazySingleton(() => GetUserInfo(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetFavorites(serviceLocator()));
+  serviceLocator.registerLazySingleton(() => GetCart(serviceLocator()));
 
   serviceLocator.registerLazySingleton(() => GetCategories(serviceLocator()));
 
