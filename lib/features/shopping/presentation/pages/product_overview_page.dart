@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cubit/flutter_cubit.dart';
-import 'package:shopping_app/features/profile/domain/usecases/add_cart.dart';
 import 'package:shopping_app/features/profile/presentation/cubit/user_cubit.dart';
 import 'package:shopping_app/features/profile/presentation/cubit/user_state.dart';
 import 'package:shopping_app/features/profile/presentation/pages/user_cart_page.dart';
@@ -268,9 +267,8 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
               icon: Icon(Icons.shopping_cart_outlined),
             ),
             CubitConsumer<UserCubit, UserState>(
-              listener: (context, state){
-              },
-              builder:(BuildContext context, UserState state) {
+              listener: (context, state) {},
+              builder: (BuildContext context, UserState state) {
                 if (state is UserGetCart) {
                   return Positioned(
                     top: 7,
@@ -308,7 +306,9 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
                   value: CubitProvider.of<UserCubit>(context),
                   child: UserProfilePage(),
                 );
-              }));
+              })).then((value) {
+                context.cubit<UserCubit>().getCart();
+              });
             })
       ],
     );
