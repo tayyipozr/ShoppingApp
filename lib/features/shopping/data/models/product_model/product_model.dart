@@ -12,8 +12,7 @@ abstract class ProductModel with _$ProductModel {
     double price,
     String description,
     String category,
-    String image,
-    [@Default(false) bool favorite]) = _ProductModel;
+    String image) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 }

@@ -8,7 +8,6 @@ import 'package:shopping_app/features/shopping/data/models/product_model/product
 
 class UserRepositoryImpl implements UserRepository {
   final UserLocalDataSource localDataSource;
-  // final NetworkInfo networkInfo;
 
   UserRepositoryImpl({@required this.localDataSource});
 
@@ -23,9 +22,9 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addFavorite(ProductModel product) async {
+  Future<Either<Failure, bool>> deleteCart(ProductModel product) async {
     try {
-      final response = await localDataSource.addFavorite(product);
+      final response = await localDataSource.deleteCart(product);
       return Right(response);
     } on Exception {
       return Left(CacheFailure());
@@ -45,23 +44,10 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, List<ProductModel>>> getCart() async {
     try {
-      final cart =  localDataSource.getCart();
+      final cart =  await localDataSource.getCart();
       return Right(cart);
     } on Exception {
       return Left(CacheFailure());
     }
   }
-
-  @override
-  Future<Either<Failure, List<ProductModel>>> getFavorites() async {
-    try {
-      final favorites = localDataSource.getFavorites();
-      return Right(favorites);
-    } on Exception {
-      return Left(CacheFailure());
-    }
-  }
-
-
-
 }

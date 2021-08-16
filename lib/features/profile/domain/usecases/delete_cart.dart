@@ -4,15 +4,15 @@ import 'package:shopping_app/core/usecases/usecase.dart';
 import 'package:shopping_app/features/profile/domain/repositories/user_repository.dart';
 
 
-class AddFavorite implements UseCase<bool, ProductParams> {
+class DeleteCart implements UseCase<bool, ProductParams> {
 
   final UserRepository _userRepository;
 
-  AddFavorite(this._userRepository);
+  DeleteCart(this._userRepository);
 
   @override
   Future<Either<Failure, bool>> call(ProductParams params) async {
-    return await _userRepository.addFavorite(params.product);
+    return await _userRepository.deleteCart(params.product);
   }
 
 }

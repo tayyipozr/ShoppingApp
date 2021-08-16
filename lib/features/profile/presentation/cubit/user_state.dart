@@ -23,16 +23,20 @@ class UserLoaded extends UserState {
   const UserLoaded(this.user);
 }
 
-class CartAdded extends UserState {
-  final bool isAdded;
-
-  const CartAdded(this.isAdded);
+class UserCartLoading extends UserState {
+  const UserCartLoading();
 }
 
-class FavoriteAdded extends UserState {
+class UserCartAdded extends UserState {
   final bool isAdded;
 
-  const FavoriteAdded(this.isAdded);
+  const UserCartAdded(this.isAdded);
+}
+
+class UserCartDeleted extends UserState {
+  final bool isDeleted;
+
+  const UserCartDeleted(this.isDeleted);
 }
 
 class UserGetCart extends UserState {
@@ -41,15 +45,12 @@ class UserGetCart extends UserState {
   const UserGetCart(this.cart);
 }
 
-class UserGetFavorites extends UserState {
-  final List<ProductModel> favorites;
-
-  const UserGetFavorites(this.favorites);
-}
-
-
 class UserError extends UserState {
   final String message;
 
   const UserError(this.message);
 }
+
+
+
+

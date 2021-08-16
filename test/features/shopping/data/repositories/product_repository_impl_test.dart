@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shopping_app/core/error/exceptions.dart';
 import 'package:shopping_app/core/error/failure.dart';
-import 'package:shopping_app/core/network/network_info.dart';
 import 'package:shopping_app/features/shopping/data/datasources/product_local_datasource.dart';
 import 'package:shopping_app/features/shopping/data/datasources/product_remote_datasource.dart';
 import 'package:shopping_app/features/shopping/data/models/product_model/product_model.dart';
