@@ -8,7 +8,7 @@ Features :
   - Showing products due to categories.
   - Showing details of the product when it is clicked.
   - All products can be added to shopping cart.
-  - To be able to see the number of products added to the shopping cart.
+  - Able to see the number of products added to the shopping cart.
   - The added products in cart can be deleted just by swiping left.
   - User profile page showes the information about the user.
 
