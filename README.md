@@ -1,7 +1,5 @@
 # shopping_app
 
-A new Flutter project.
-
 ## Getting Started
 
 This project is a demonstration project about Shopping.
@@ -13,7 +11,6 @@ Features :
   - To be able to see the number of products added to the shopping cart.
   - The added products in cart can be deleted just by swiping left.
   - User profile page showes the information about the user.
-  - 
 
 - [Lab: A short video about app (usage) ](https://drive.google.com/file/d/11yyenDYrjB5lEAnerrhk3PDx15Mbebx4/view?usp=sharing)
 
