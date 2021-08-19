@@ -3,20 +3,22 @@ import 'package:shopping_app/features/shopping/data/models/product_model/product
 
 class CartItemShadow extends StatelessWidget {
   const CartItemShadow({
-    Key key,
+    Key key, this.length,
   }) : super(key: key);
+
+  final int length;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: Opacity(
           opacity: 0.2,
           child: Container(
             color: Colors.grey,
-            height: 100,
+            height: 80,
           ),
         ),
       ),

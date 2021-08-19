@@ -24,6 +24,9 @@ class ProductOverviewPage extends StatefulWidget {
 }
 
 class _ProductOverviewPageState extends State<ProductOverviewPage> {
+
+  int cartLength = 0;
+
   @override
   void didChangeDependencies() async {
     await context.cubit<ProductCubit>().getProducts();
@@ -54,7 +57,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
             },
             listener: (context, state) {
               if (state is CategoryError) {
-                Scaffold.of(context).showSnackBar(SnackBar(content: Text("HERE")));
+                _buildShowSnackBar(context, state.message);
               }
             },
           ),
@@ -72,13 +75,18 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
             },
             listener: (context, state) {
               if (state is ProductError) {
-                Scaffold.of(context).showSnackBar(SnackBar(content: Text("HERE")));
+                _buildShowSnackBar(context, state.message);
               }
             },
           ),
         ],
       ),
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _buildShowSnackBar(BuildContext context, String message) {
+    Scaffold.of(context).hideCurrentSnackBar();
+    return Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Center _buildError() => Center(child: Text("Error"));
@@ -102,22 +110,21 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
   }
 
   CubitConsumer<UserCubit, UserState> _shoppingCartCubit() {
-    String i = "";
     return CubitConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if(state is UserCartAdded){
-          if (state.isAdded) Scaffold.of(context).showSnackBar(SnackBar(content: Text("Product added to cart")));
-          else Scaffold.of(context).showSnackBar(SnackBar(content: Text("Product couldn't added to cart")));
+          if (state.isAdded) _buildShowSnackBar(context, "Product added to cart");
+          else _buildShowSnackBar(context, "Product couldn't added to cart");
         }
       },
       builder: (BuildContext context, UserState state) {
         print(state);
         if (state is UserCartLoading) {
-          return _shoppingCartItemCount(i);
+          return _shoppingCartItemCount(cartLength.toString());
         }
         if (state is UserGetCart) {
-          i = state.cart.length.toString();
-          return _shoppingCartItemCount(i);
+          cartLength = state.cart.length;
+          return _shoppingCartItemCount(cartLength.toString());
         } else {
           return SizedBox.shrink();
         }
@@ -149,7 +156,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
   IconButton _shoppingCartIcon() {
     return IconButton(
       onPressed: () {
-        Navigator.pushNamed(context, NavigationConstants.USER_CART).then((value) async {
+        Navigator.pushNamed(context, NavigationConstants.USER_CART, arguments: cartLength).then((value) async {
           await context.cubit<UserCubit>().getCart();
         });
       },

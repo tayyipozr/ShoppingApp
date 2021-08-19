@@ -17,7 +17,7 @@ class NavigationRoute {
       case NavigationConstants.PRODUCT_OVERVIEW:
         return navigate(ProductOverviewPage(), CubitEnum.None);
       case NavigationConstants.USER_CART:
-        return navigate(UserCartPage(), CubitEnum.UserCubit);
+        return navigate(UserCartPage(cartLength: settings.arguments), CubitEnum.UserCubit);
         case NavigationConstants.USER_PROFILE:
       return navigate(UserProfilePage(), CubitEnum.UserCubit);
       case NavigationConstants.PRODUCT_DETAIL:

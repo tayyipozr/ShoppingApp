@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shopping_app/core/error/exceptions.dart';
 import 'package:shopping_app/features/profile/data/models/user_model/user_model.dart';
 import 'package:shopping_app/features/shopping/data/models/product_model/product_model.dart';
 
@@ -66,10 +67,13 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   Future<List<ProductModel>> getCart() async {
     List<ProductModel> cart = List<ProductModel>();
     final List<String> tempCart = sharedPreferences.getStringList(CACHED_CART);
+    print(tempCart);
     if (tempCart != null) {
       cart = tempCart.map((product) => ProductModel.fromJson(jsonDecode(product))).toList();
+      return Future.delayed(Duration(milliseconds: 700), () => cart);
+    } else {
+      throw CacheException();
     }
-    return Future.delayed(Duration(milliseconds: 700), () => cart);
   }
 
 }

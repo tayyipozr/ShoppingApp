@@ -16,13 +16,13 @@ abstract class ProductRemoteDataSource {
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   final http.Client client;
-  static const Map<String, String> _headers = {"Content-Type": "application/json"};
+  static const Map<String, String> _headers = {"Content-Type": "application/json; charset=utf-8"};
 
   ProductRemoteDataSourceImpl(this.client);
 
   @override
   Future<ProductModel> getProduct(int productId) async {
-    final response = await client.get(Uri.parse(Endpoints.product + '$productId'), headers: _headers);
+    final response = await client.get(Uri.parse(Endpoints.product + '/$productId'), headers: _headers);
     if (response.statusCode == 200)
       return ProductModel.fromJson(jsonDecode(response.body));
     else
@@ -45,7 +45,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     final response = await client.get(Uri.parse(Endpoints.categories), headers: _headers);
     if (response.statusCode == 200) {
       final Iterable decoded = jsonDecode(response.body);
-      List<String> categories = decoded.map((string) => string.toString()).toList();
+      final List<String> categories = decoded.map((c) => c.toString()).toList();
       return categories;
     } else
       throw ServerException();

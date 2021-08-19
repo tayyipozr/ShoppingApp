@@ -6,12 +6,12 @@ import 'package:shopping_app/features/shopping/domain/entities/product.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-/*
-void main() {
-  final tProductModel = ProductModel();
 
-  test('should be a subclass of Product entity', () async {
-    expect(tProductModel, isA<Product>());
+void main() {
+  final productModel = ProductModel.fromJson(jsonDecode(fixture('product.json')));
+
+  test('should be a subclass of Product entity', ()  {
+    expect(productModel, isA<Product>());
   });
 
   group('from json ', () {
@@ -21,19 +21,9 @@ void main() {
       // act
       final result = ProductModel.fromJson(jsonMap);
       // assert
-      expect(result, tProductModel);
+      expect(result, productModel);
     });
 
-    /*
-    test('should return a valid model when the json productId, categoryId are double', () async {
-      // arrange
-      final Map<String, dynamic> jsonMap = jsonDecode(fixture('product_double.json'));
-      // act
-      final result = ProductModel.fromJson(jsonMap);
-      // assert
-      expect(result, tProductModel);
-    });
-    */
   });
 
   group('to json ', () {
@@ -41,10 +31,10 @@ void main() {
       // arrange
       final expectedMap = {"productId": 1, "categoryId": 1, "productName": "Keyboard", "price": 35.5, "discount": 0};
       // act
-      final result = tProductModel.toJson();
+      final result = productModel.toJson();
       // assert
       expect(result, expectedMap);
     });
   });
 }
-*/
+

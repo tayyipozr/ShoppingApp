@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cubit/flutter_cubit.dart';
+import 'package:shopping_app/core/extensions/context_extensions.dart';
 import 'package:shopping_app/features/profile/presentation/cubit/user_cubit.dart';
 import 'package:shopping_app/features/profile/presentation/cubit/user_state.dart';
 import 'package:shopping_app/features/profile/presentation/widgets/user_cart_page_widgets/cart_item_shadow.dart';
@@ -7,10 +8,12 @@ import 'package:shopping_app/features/profile/presentation/widgets/user_cart_pag
 import 'package:shopping_app/features/shopping/data/models/product_model/product_model.dart';
 
 class UserCartPage extends StatefulWidget {
-  const UserCartPage({Key key}) : super(key: key);
+  const UserCartPage({Key key, this.cartLength}) : super(key: key);
 
   @override
   _UserCartPageState createState() => _UserCartPageState();
+
+  final int cartLength;
 }
 
 class _UserCartPageState extends State<UserCartPage> {
@@ -36,7 +39,7 @@ class _UserCartPageState extends State<UserCartPage> {
         return !(previous is UserCartDeleted);
       }, builder: (BuildContext context, UserState state) {
         if (state is UserCartLoading) {
-          return CartItemShadow();
+          return CartItemShadow(length: widget.cartLength);
         } else if (state is UserGetCart) {
           products = state.cart;
           return _buildListView(state.cart);
@@ -47,16 +50,21 @@ class _UserCartPageState extends State<UserCartPage> {
         }
       }, listener: (context, state) {
         if (state is UserError) {
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+          _buildShowSnackBar(context, state.message);
         } else if (state is UserCartDeleted) {
           if (state.isDeleted) {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Product Deleted")));
+            _buildShowSnackBar(context, "Product deleted");
           } else {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Couldn't Deleted")));
+            _buildShowSnackBar(context, "Couldn't deleted");
           }
         }
       }),
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _buildShowSnackBar(BuildContext context, String message) {
+    Scaffold.of(context).hideCurrentSnackBar();
+    return Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   ListView _buildListView(List<ProductModel> cart) {
@@ -70,7 +78,15 @@ class _UserCartPageState extends State<UserCartPage> {
             cart.forEach((element) => total += element.price);
             return _buildTotalPrice(total);
           } else {
-            return SizedBox.shrink();
+            return Padding(
+              padding: EdgeInsets.only(top: context.height / 2.5),
+              child: Center(child: Column(
+                children: [
+                  Icon(Icons.shopping_cart_outlined),
+                  Text("Cart is Empty"),
+                ],
+              ),),
+            );
           }
         } else {
           ProductModel productModel = cart[index];

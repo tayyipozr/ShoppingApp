@@ -50,7 +50,7 @@ Future<void> init() async {
 
   // DataSources
   serviceLocator.registerLazySingleton<ProductLocalDataSource>(
-      () => ProductLocalDataSourceImpl(sharedPreferences: serviceLocator()));
+      () => ProductLocalDataSourceImpl());
   serviceLocator.registerLazySingleton<ProductRemoteDataSource>(() => ProductRemoteDataSourceImpl(serviceLocator()));
 
   serviceLocator
